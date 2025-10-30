@@ -9,12 +9,15 @@
 
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col">
-  <nav class="bg-white shadow p-4 flex justify-between items-center fixed w-full top-0 mb-15">
+  <nav class="bg-yellow-400 shadow p-4 flex justify-between items-center fixed w-full top-0 mb-15">
       <h1 class="font-bold text-xl text-gray-800">Sistem Absensi Magang</h1>
       <div class="flex items-center gap-4">
-          <span class="text-gray-700">{{ Auth::user()->name }}</span>
-          <img src="{{ Auth::user()->foto ? asset('storage/'.Auth::user()->foto) : asset('images/default-avatar.png') }}" 
-               alt="Avatar" class="w-10 h-10 rounded-full border">
+          <form action="{{ route('logout') }}" method="POST">
+              @csrf
+              <button type="submit" class="text-red-600 hover:text-red-800 font-semibold">Logout</button>
+          </form>
+          {{-- <span class="text-gray-700">{{ Auth::user()->name }}</span> --}}
+          <img src="{{ Auth::user()->foto ? asset('storage/'.Auth::user()->foto) : asset('image/avatar1.avif') }}" alt="Avatar" class="w-10 h-10 rounded-full border">
       </div>
   </nav>
 

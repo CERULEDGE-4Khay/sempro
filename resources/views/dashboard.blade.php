@@ -3,10 +3,13 @@
 @section('content')
 <div class="max-w-3xl mx-auto bg-white/90 backdrop-blur-md p-8 rounded-2xl shadow-xl mt-20">
     <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-800">Halo, {{ $user->name }}</h2>
-        <img src="{{ asset('images/avatar.png') }}" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-blue-400">
+        <div>
+            <h2 class="text-2xl font-bold text-gray-800">Halo, {{ $user->name }}</h2>
+            <p class="font-semibold text-sm text-shadow-2xs mb-5 text-gray-700">Selamat pagi {{ $user->name }}! siap jalani magang hari ini? Semangat!</p>
+        </div>
+        <img src="{{ asset('image/avatar1.avif') }}" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-blue-400">
     </div>
-
+    <div class="p-0.5 bg-gray-900 mb-4"></div>
     <p class="mb-6 text-gray-600">📍 Ruangan:
         <span class="font-semibold text-gray-800">{{ $user->ruangan ?? 'Belum ditempatkan' }}</span>
     </p>
@@ -57,14 +60,14 @@
             </tr>
         </thead>
         <tbody>
-            @forelse($absensis as $a)
+            @forelse($absensis as $absensi)
                 <tr class="border-t hover:bg-gray-50 transition">
-                    <td class="p-2">{{ $a->tanggal }}</td>
-                    <td class="p-2">{{ $a->jam_masuk ?? '-' }}</td>
-                    <td class="p-2">{{ $a->jam_keluar ?? '-' }}</td>
+                    <td class="p-2">{{ $absensi->tanggal }}</td>
+                    <td class="p-2">{{ $absensi->jam_masuk ?? '-' }}</td>
+                    <td class="p-2">{{ $absensi->jam_keluar ?? '-' }}</td>
                     <td class="p-2 font-semibold
-                        {{ $a->status == 'masuk' ? 'text-green-600' : ($a->status == 'terlambat' ? 'text-yellow-600' : 'text-red-600') }}">
-                        {{ $a->status }}
+                        {{ $absensi->status == 'masuk' ? 'text-green-600' : ($absensi->status == 'terlambat' ? 'text-yellow-600' : 'text-red-600') }}">
+                        {{ $absensi->status }}
                     </td>
                 </tr>
             @empty
