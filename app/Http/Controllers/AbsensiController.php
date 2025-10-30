@@ -24,7 +24,7 @@ class AbsensiController extends Controller
 
         $now = Carbon::now()->format('H:i:s');
         $lokasi = $request->input('lokasi');
-        $status = $now > '08:00:00' ? 'terlambat' : 'masuk';
+        $status = $now > '08:00:00' ? 'terlambat' : 'hadir';
 
         Absensi::create([
             'user_id'      => $user->id,
