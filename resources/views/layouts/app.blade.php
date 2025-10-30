@@ -16,8 +16,12 @@
               @csrf
               <button type="submit" class="text-red-600 hover:text-red-800 font-semibold">Logout</button>
           </form>
+          <div class="text-white font-semibold"><a href="/dashboard">Home</a></div>
+            <div class="text-white font-semibold"><a href="/riwayat">Riwayat</a></div>
           {{-- <span class="text-gray-700">{{ Auth::user()->name }}</span> --}}
+          <a href="profile">
           <img src="{{ Auth::user()->foto ? asset('storage/'.Auth::user()->foto) : asset('image/avatar1.avif') }}" alt="Avatar" class="w-10 h-10 rounded-full border">
+          </a>
       </div>
   </nav>
 

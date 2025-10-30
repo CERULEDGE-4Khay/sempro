@@ -7,9 +7,14 @@ use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\AuthController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\ProfileController;
 
 // Halaman utama
 Route::get('/', fn() => view('welcome'))->name('welcome');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+Route::get('/riwayat', [AbsensiController::class, 'riwayat'])->name('riwayat');
 
 // Autentikasi
 Route::middleware('guest')->group(function() {

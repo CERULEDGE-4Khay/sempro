@@ -62,4 +62,17 @@ class AbsensiController extends Controller
 
         return back()->with('success', 'Absen keluar berhasil!');
     }
+
+    public function riwayat(Request $request)
+    {
+    $query = Absensi::where('user_id', Auth::id());
+
+    if ($request->filled('tanggal')) {
+        $query->whereDate('tanggal', $request->tanggal);
+    }
+
+    $absensi = $query->latest()->paginate(10);
+    return view('riwayat', compact('absensi'));
+    }
+
 }
