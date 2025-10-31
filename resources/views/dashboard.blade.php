@@ -11,7 +11,9 @@
     </div>
     <div class="p-0.5 bg-gray-900 mb-4"></div>
     <p class="mb-6 text-gray-600">📍 Ruangan:
-        <span class="font-semibold text-gray-800">{{ $user->ruangan ?? 'Belum ditempatkan' }}</span>
+        <span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded">
+        {{ $magang->ruangan ?? 'Belum Ditempatkan' }}
+        </span>
     </p>
 
     {{-- Waktu Realtime --}}

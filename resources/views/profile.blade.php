@@ -28,6 +28,29 @@
         <input type="text" name="jurusan" value="{{ $magang->jurusan ?? '' }}" class="w-full p-2 border rounded">
       </div>
       <div>
+        <label class="block mb-2">Ruangan</label>
+        <input type="text" disabled value="{{ $magang->ruangan ?? 'Belum ditempatkan' }}" class="w-full p-2 border rounded bg-gray-100">
+      </div>
+     <div>
+        <label class="block mb-2">Status Magang</label>
+        @if($magang)
+          <span class="
+            px-3 py-1 rounded text-sm
+            @if($magang->status == 'aktif') bg-green-100 text-green-900
+            @elseif($magang->status == 'pending') bg-yellow-100 text-yellow-900
+            @else bg-gray-100 text-gray-800
+            @endif
+          ">
+            {{ ucfirst($magang->status) }}
+          </span>
+        @else
+          <span class="px-3 py-1 rounded text-sm bg-gray-100 text-gray-800">
+            Belum Diketahui
+          </span>
+        @endif
+      </div>
+
+      <div>
         <label class="block mb-2">Alamat</label>
         <textarea name="alamat" class="w-full p-2 border rounded">{{ $magang->alamat ?? '' }}</textarea>
       </div>

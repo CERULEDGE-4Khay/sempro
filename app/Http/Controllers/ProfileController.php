@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Magang;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
@@ -12,6 +13,18 @@ class ProfileController extends Controller
     public function index() {
         $user = Auth::user();
         $magang = $user->magang ?? null;
+
+         if ($magang) {
+            $today = Carbon::today()->toDateString();
+            // Jika tgl_keluar sudah lewat, ubah status
+            if ($magang->tgl_keluar < $today && $magang->status !== 'non aktif') {
+                $magang->status = 'non aktif';
+                $magang->save();
+            } elseif ($magang->tgl_keluar >= $today && $magang->status !== 'aktif') {
+                $magang->status = 'aktif';
+                $magang->save();
+            }
+        }
         return view('profile', compact('user', 'magang'));
     }
 

@@ -17,13 +17,37 @@
               <button type="submit" class="text-red-600 hover:text-red-800 font-semibold">Logout</button>
           </form>
           <div class="text-white font-semibold"><a href="/dashboard">Home</a></div>
-            <div class="text-white font-semibold"><a href="/riwayat">Riwayat</a></div>
+          <div class="text-white font-semibold"><a href="/riwayat">Riwayat</a></div>
+          <div class="text-white font-semibold"><a href="/izin">Izin</a></div>
+          <div class="text-white font-semibold"><a href="/feedback">Pesan</a></div>
           {{-- <span class="text-gray-700">{{ Auth::user()->name }}</span> --}}
           <a href="profile">
           <img src="{{ Auth::user()->foto ? asset('storage/'.Auth::user()->foto) : asset('image/avatar1.avif') }}" alt="Avatar" class="w-10 h-10 rounded-full border">
           </a>
       </div>
   </nav>
+  @if(session('success'))
+  <script>
+  Swal.fire({
+    icon: 'success',
+    title: '{{ session("success") }}',
+    showConfirmButton: false,
+    timer: 2000
+  })
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const now = new Date();
+      if (now.getHours() >= 9 && !window.hasAbsenMasuk) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Belum absen masuk!',
+          text: 'Segera lakukan absen sebelum jam 09:00',
+        });
+    }
+  });
+
+  </script>
+  @endif
 
   <main class="flex-grow p-6">
       @yield('content')
@@ -32,5 +56,18 @@
   <footer class="text-center py-3 text-gray-500 text-sm">
       © {{ date('Y') }} Bandung Creative Hub
   </footer>
+
+  <script>
+  setInterval(() => {
+    axios.get('/check-absen')
+      .then(res => {
+        if (res.data.message) {
+          alert(res.data.message);
+        }
+      })
+      .catch(err => console.error(err));
+  }, 60000); // cek tiap 1 menit
+</script>
+
 </body>
 </html>

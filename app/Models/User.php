@@ -48,7 +48,7 @@ class User extends Authenticatable
 
     public function magang()
     {
-    return $this->hasOne(Magang::class);
+    return $this->hasOne(Magang::class, 'user_id');
     }
 
 }

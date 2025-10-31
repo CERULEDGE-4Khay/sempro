@@ -24,7 +24,7 @@ class AbsensiController extends Controller
 
         $now = Carbon::now()->format('H:i:s');
         $lokasi = $request->input('lokasi');
-        $status = $now > '08:00:00' ? 'terlambat' : 'hadir';
+        $status = $now > '08:00:00' ? 'terlambat' : 'masuk';
 
         Absensi::create([
             'user_id'      => $user->id,
@@ -73,6 +73,25 @@ class AbsensiController extends Controller
 
     $absensi = $query->latest()->paginate(10);
     return view('riwayat', compact('absensi'));
+    }
+
+    public function checkAbsen()
+    {
+        $user = Auth::user();
+        $today = Carbon::today()->toDateString();
+        $absen = Absensi::where('user_id', $user->id)
+                        ->whereDate('tanggal', $today)
+                        ->first();
+
+        if (!$absen) {
+            return response()->json(['message' => 'Kamu belum absen hari ini!']);
+        }
+
+        if ($absen && !$absen->jam_keluar && now()->hour >= 16) {
+            return response()->json(['message' => 'Jangan lupa absen keluar ya!']);
+        }
+
+        return response()->json(['message' => null]);
     }
 
 }
