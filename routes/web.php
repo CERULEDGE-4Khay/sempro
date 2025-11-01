@@ -10,6 +10,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\IzinController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\AdminController;
 
 // Halaman utama
 Route::get('/', fn() => view('welcome'))->name('welcome');
@@ -26,6 +27,7 @@ Route::post('/izin', [IzinController::class, 'store'])->name('izin.store');
 Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
 Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
+Route::post('/admin/magang/status/{id}', [MagangController::class, 'updateStatus'])->name('admin.magang.status');
 
 // Autentikasi
 Route::middleware('guest')->group(function() {
@@ -45,13 +47,29 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/absen-keluar', [AbsensiController::class, 'absenKeluar'])->name('absen.keluar');
 
     // Admin area
-    // Route::middleware(['role:admin'])->group(function () {
-    //     // Route::resource('magang', MagangController::class);
-    //     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
-    // });
     Route::prefix('admin')->group(function() {
         Route::get('dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
-        // Route::resource('magang', [MagangController::class, '']);
-        Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+        // Route::resource('/admin/magang', [MagangController::class, '']);
+        Route::get('/admin/laporan', [LaporanController::class, 'index'])->name('admin.laporan.index');
     });
 });
+Route::middleware(['auth'])->group(function() {
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+});
+
+// --- IZIN / SAKIT ---
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/izin', [App\Http\Controllers\Admin\IzinController::class, 'index'])->name('admin.izin.index');
+    Route::post('/izin/{id}/approve', [App\Http\Controllers\Admin\IzinController::class, 'approve'])->name('admin.izin.approve');
+    Route::post('/izin/{id}/reject', [App\Http\Controllers\Admin\IzinController::class, 'reject'])->name('admin.izin.reject');
+});
+
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/admin/feedback', [App\Http\Controllers\FeedbackController::class, 'index'])->name('admin.feedback.index');
+    Route::delete('/feedback/{id}', [App\Http\Controllers\FeedbackController::class, 'destroy'])->name('admin.feedback.destroy');
+});
+
+Route::resource('/admin/magang', MagangController::class);
+
+Route::get('/admin/absensi', [AdminController::class, 'absensi'])->name('admin.absensi');
+

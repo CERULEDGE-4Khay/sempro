@@ -16,7 +16,7 @@
                   Total anak magang
                 </p>
                 <h5 class="mb-0 font-bold">
-                  20
+                  {{ $totalUser }}
                 </h5>
               </div>
             </div>
@@ -46,7 +46,7 @@
                   Total absensi masuk
                 </p>
                 <h5 class="mb-0 font-bold">
-                  10
+                  {{ $totalMasuk }}
                 </h5>
               </div>
             </div>
@@ -76,7 +76,7 @@
                   Total tidak masuk
                 </p>
                 <h5 class="mb-0 font-bold">
-                  10
+                  {{ $totalTidakMasuk }}
                 </h5>
               </div>
             </div>
@@ -105,7 +105,7 @@
                   Total keluar
                 </p>
                 <h5 class="mb-0 font-bold">
-                  10
+                  {{ $totalKeluar }}
                 </h5>
               </div>
             </div>
@@ -211,99 +211,68 @@
                   </th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td
-                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                    <div class="flex px-2 py-1">
-                      {{-- SEMISAL INGIN ADA PROFILE IMAGE --}}
-                      {{-- <div>
-                        <img
-                          src="./assets/img/small-logos/logo-xd.svg"
-                          class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl"
-                          alt="xd" />
-                      </div> --}}
-                      <div class="flex flex-col justify-center">
-                        <h6 class="mb-0 text-sm leading-normal">
-                          Jonathan
-                        </h6>
-                      </div>
-                    </div>
-                  </td>
-                  <td
-                    class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap">
-                    <span class="text-xs font-semibold leading-tight">
-                      Front Office
-                    </span>
-                  </td>
-                  <td
-                    class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap">
-                    <span class="text-xs font-semibold leading-tight">
-                      2 Bulan
-                    </span>
-                  </td>
-                  <td
-                    class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap">
-                    <span class="bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300">
-                      Active
-                    </span>
-                  </td>
-                  <td
-                    class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap">
-                    <span class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                      Detail
-                    </span>
-                  </td>
-                </tr>
-                
-                <tr>
-                  <td
-                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                    <div class="flex px-2 py-1">
-                      {{-- SEMISAL INGIN ADA PROFILE IMAGE --}}
-                      {{-- <div>
-                        <img
-                          src="./assets/img/small-logos/logo-xd.svg"
-                          class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl"
-                          alt="xd" />
-                      </div> --}}
-                      <div class="flex flex-col justify-center">
-                        <h6 class="mb-0 text-sm leading-normal">
-                          Jonathan
-                        </h6>
-                      </div>
-                    </div>
-                  </td>
-                  <td
-                    class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap">
-                    <span class="text-xs font-semibold leading-tight">
-                      Front Office
-                    </span>
-                  </td>
-                  <td
-                    class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap">
-                    <span class="text-xs font-semibold leading-tight">
-                      2 Bulan
-                    </span>
-                  </td>
-                  <td
-                    class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap">
-                    <span class="bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-red-900 dark:text-red-300">
-                      Non Active
-                    </span>
-                  </td>
-                  <td
-                    class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap">
-                    <span class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                      Detail
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
+                <tbody>
+                  @foreach ($daftarMagang as $magang)
+                    <tr>
+                      <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
+                        <div class="flex px-2 py-1">
+                          <div class="flex flex-col justify-center">
+                            <h6 class="mb-0 text-sm leading-normal">
+                              {{ $magang->nama }}
+                            </h6>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap">
+                        <span class="text-xs font-semibold leading-tight">
+                          {{ $magang->jurusan ?? '-' }}
+                        </span>
+                      </td>
+
+                      <td class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap">
+                        <span class="text-xs font-semibold leading-tight">
+                          {{ $magang->tgl_masuk }} - {{ $magang->tgl_keluar }}
+                        </span>
+                      </td>
+
+                      <td class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap">
+                        @if ($magang->status == 'aktif')
+                          <span class="bg-green-100 text-green-800 text-sm font-medium px-2.5 py-0.5 rounded-sm">
+                            Aktif
+                          </span>
+                        @elseif ($magang->status == 'pending')
+                          <span class="bg-yellow-100 text-yellow-800 text-sm font-medium px-2.5 py-0.5 rounded-sm">
+                            Pending
+                          </span>
+                        @else
+                          <span class="bg-red-100 text-red-800 text-sm font-medium px-2.5 py-0.5 rounded-sm">
+                            Non Aktif
+                          </span>
+                        @endif
+                      </td>
+
+                      <td class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap">
+                        <a href="{{ route('admin.magang.show', $magang->id) }}"
+                          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5">
+                          Detail
+                        </a>
+                      </td>
+                    </tr>
+                  @endforeach
+                </tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+@if (session('error'))
+  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+    <strong class="font-bold">Oops!</strong>
+    <span class="block sm:inline">{{ session('error') }}</span>
+  </div>
+@endif
+
 @endsection

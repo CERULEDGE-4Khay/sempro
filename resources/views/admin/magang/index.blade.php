@@ -1,4 +1,7 @@
-    <div class="p-6">
+@extends('layouts.admin')
+@section('content') 
+ 
+ <div class="p-6">
         <h1 class="text-2xl font-bold mb-4">Data Anak Magang</h1>
         <a href="{{ route('magang.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded">+ Tambah</a>
         <table class="table-auto w-full mt-4 border">
@@ -30,3 +33,15 @@
             </tbody>
         </table>
     </div>
+
+    @foreach($magangs as $magang)
+    <form action="{{ route('admin.magang.status', $magang->id) }}" method="POST">
+        @csrf
+        <select name="status" onchange="this.form.submit()">
+            <option value="pending" {{ $magang->status == 'pending' ? 'selected' : '' }}>Pending</option>
+            <option value="aktif" {{ $magang->status == 'aktif' ? 'selected' : '' }}>Aktif</option>
+            <option value="non aktif" {{ $magang->status == 'non aktif' ? 'selected' : '' }}>Non Aktif</option>
+        </select>
+    </form>
+    @endforeach
+@endsection

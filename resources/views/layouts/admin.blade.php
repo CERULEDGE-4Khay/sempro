@@ -33,7 +33,7 @@
       src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
   </head>
 
-  <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
+  <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-yellow-400 text-slate-900">
     {{-- Sidebar --}}
     @include('components.sidenav')
 

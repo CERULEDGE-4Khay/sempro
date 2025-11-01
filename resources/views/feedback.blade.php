@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="max-w-3xl mx-auto bg-white p-6 rounded shadow">
+<div class="max-w-3xl mx-auto bg-white p-6 rounded shadow mt-20">
   <h2 class="text-xl font-bold mb-3">Catatan Harian</h2>
   <form method="POST" action="{{ route('feedback.store') }}">
     @csrf
